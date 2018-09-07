@@ -41,7 +41,6 @@ const fillDatabase = data => {
     dbo.collection("quotes").insertMany(quotes, (err, res) => {
       if (err) throw err;
       console.log(`Inserted ${res.insertedCount} quotes!`);
-      resolve("La liste de citations a été mise à jour avec succès !");
     });
   };
   return new Promise((resolve, reject) => {
@@ -64,6 +63,7 @@ const fillDatabase = data => {
           insertQuotes(data);
         }
       });
+      resolve("La liste de citations a été mise à jour avec succès !");
     } else {
       reject(
         new Error(
