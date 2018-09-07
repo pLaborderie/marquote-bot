@@ -5,7 +5,10 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 
 //Import modules
-const { fillDatabase, getQuote, addQuote } = require("./sendQuotes");
+const { fillDatabase, getQuote, addQuote, connect } = require("./sendQuotes");
+
+//Connecting to DB
+connect();
 
 /**
  * The ready event is vital, it means that only _after_ this will your bot start reacting to information
