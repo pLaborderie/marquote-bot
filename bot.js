@@ -22,7 +22,7 @@ client.on("message", message => {
 
     chan.fetchMessages().then(messages => {
       const data = messages.array().map(text => {
-        return { text };
+        return { text: text.content };
       });
       console.log(data);
       fillDatabase(data);
