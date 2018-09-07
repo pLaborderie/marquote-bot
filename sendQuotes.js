@@ -12,6 +12,21 @@ const testConnection = () => {
   );
 };
 
+const addQuote = data => {
+  MongoClient.connect(
+    url,
+    (err, db) => {
+      if (err) throw err;
+      const dbo = db.db("marquotes");
+      dbo.collection("quotes").insertOne(data, (err, res) => {
+        if (err) throw err;
+        console.log("Quote inserted!");
+        db.close();
+      });
+    }
+  );
+};
+
 const fillDatabase = data => {
   MongoClient.connect(
     url,
@@ -64,4 +79,4 @@ const getQuote = () => {
   });
 };
 
-module.exports = { testConnection, fillDatabase, getQuote };
+module.exports = { testConnection, fillDatabase, getQuote, addQuote };

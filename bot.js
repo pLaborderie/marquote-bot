@@ -5,7 +5,7 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 
 //Import modules
-const { fillDatabase, getQuote } = require("./sendQuotes");
+const { fillDatabase, getQuote, addQuote } = require("./sendQuotes");
 
 /**
  * The ready event is vital, it means that only _after_ this will your bot start reacting to information
@@ -17,6 +17,12 @@ client.on("ready", () => {
 
 // Create an event listener for messages
 client.on("message", message => {
+  //Nouveau message sur marquesuzaa_la_legende
+  if (message.channel.name === "marquesuzaa_la_legende") {
+    const data = { text: message.content };
+    addQuote(data);
+  }
+
   if (message.content === "fill") {
     const chan = client.channels.find("name", "marquesuzaa_la_legende");
 
