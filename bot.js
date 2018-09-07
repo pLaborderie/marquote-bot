@@ -24,11 +24,19 @@ client.on("message", message => {
       const data = messages.array().map(text => {
         return { text: text.content };
       });
-      console.log(data);
       fillDatabase(data);
+      //Envoi message
+      message.channel.send(
+        new Discord.RichEmbed()
+          .setTitle("Marquesuzaà dit : ")
+          .setColor(0xff0000)
+          .setDescription(
+            "La liste de citations a été mise à jour avec succès !"
+          )
+      );
     });
   } else if (message.content === "marquote") {
-    getQuote.then(quote => {
+    getQuote().then(quote => {
       console.log(quote);
       message.channel.send(
         new Discord.RichEmbed()
