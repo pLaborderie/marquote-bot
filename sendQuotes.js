@@ -76,16 +76,24 @@ const fillDatabase = data => {
 
 const getQuote = () => {
   return new Promise((resolve, reject) => {
-    let quote = "";
     dbo
       .collection("quotes")
       .find({})
       .toArray(async (err, result) => {
         if (err) throw err;
-        const rand = Math.floor(Math.random() * result.length);
-        console.log(rand);
-        quote = result[rand].text;
-        resolve(quote);
+        if (result.length > 0) {
+          //There are quotes
+          const rand = Math.floor(Math.random() * result.length);
+          const quote = result[rand].text;
+          resolve(quote);
+        } else {
+          //No quotes loaded!
+          reject(
+            new Error(
+              "/!\\ Aucune citation n'a pu être obtenue. La base de donnée est vide (utilisez la commande fill pour la remplir) ou innacessible (contactez un modérateur où @ExTermeur, créateur du bot)."
+            )
+          );
+        }
       });
   });
 };

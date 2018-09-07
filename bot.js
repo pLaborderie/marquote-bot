@@ -53,15 +53,24 @@ client.on("message", message => {
       //Envoi message
     });
   } else if (message.content === "marquote") {
-    getQuote().then(quote => {
-      console.log(quote);
-      message.channel.send(
-        new Discord.RichEmbed()
-          .setTitle("Marquesuzaà dit : ")
-          .setColor(0xff0000)
-          .setDescription(quote)
-      );
-    });
+    getQuote()
+      .then(quote => {
+        console.log(quote);
+        message.channel.send(
+          new Discord.RichEmbed()
+            .setTitle("Marquesuzaà dit : ")
+            .setColor(0xff0000)
+            .setDescription(quote)
+        );
+      })
+      .catch(err => {
+        message.channel.send(
+          new Discord.RichEmbed()
+            .setTitle("Marquesuzaà dit : ")
+            .setColor(0xff0000)
+            .setDescription(err)
+        );
+      });
   }
 });
 
