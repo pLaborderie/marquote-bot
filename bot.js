@@ -17,28 +17,7 @@ client.on("ready", () => {
 
 // Create an event listener for messages
 client.on("message", message => {
-  if (message.content === "marquote" && message.channel.name === "bot") {
-    //Get marqua channel
-    const chan = client.channels.find("name", "marqua");
-
-    chan
-      .fetchMessages()
-      .then(messages => {
-        let rand = Math.floor(Math.random() * messages.size);
-        let selected = messages.array()[rand].content;
-        while (selected === "" || selected === "log") {
-          rand = Math.floor(Math.random() * messages.size);
-          selected = messages.array()[rand].content;
-        }
-        message.channel.send(
-          new Discord.RichEmbed()
-            .setTitle("Marquote")
-            .setColor(0xff0000)
-            .setDescription(selected)
-        );
-      })
-      .catch(console.error);
-  } else if (message.content === "fill") {
+  if (message.content === "fill") {
     const chan = client.channels.find("name", "marquesuzaa_la_legende");
 
     chan.fetchMessages().then(messages => {
@@ -47,7 +26,7 @@ client.on("message", message => {
       });
       fillDatabase(data);
     });
-  } else if (message.content === "getQuote") {
+  } else if (message.content === "marquote") {
     getQuote.then(quote => {
       message.channel.send(
         new Discord.RichEmbed()
