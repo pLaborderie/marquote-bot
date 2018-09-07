@@ -36,6 +36,14 @@ const addQuote = data => {
 };
 
 const fillDatabase = data => {
+  //Insert quotes
+  const insertQuotes = quotes => {
+    dbo.collection("quotes").insertMany(quotes, (err, res) => {
+      if (err) throw err;
+      console.log(`Inserted ${res.insertedCount} quotes!`);
+      resolve("La liste de citations a été mise à jour avec succès !");
+    });
+  };
   return new Promise((resolve, reject) => {
     console.log(`Data: ${data}`);
     console.log(`Data length: ${data.length}`);
@@ -48,15 +56,13 @@ const fillDatabase = data => {
             if (err) throw err;
             if (delOK) {
               console.log("Deleted quotes successfully!");
+              insertQuotes(data);
             }
           });
+        } else {
+          //Doesn't exist; Create it
+          insertQuotes(data);
         }
-      });
-      //Insert quotes
-      dbo.collection("quotes").insertMany(data, (err, res) => {
-        if (err) throw err;
-        console.log(`Inserted ${res.insertedCount} quotes!`);
-        resolve("La liste de citations a été mise à jour avec succès !");
       });
     } else {
       reject(
