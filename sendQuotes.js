@@ -40,26 +40,28 @@ const fillDatabase = data => {
   );
 };
 
-const getQuote = new Promise((resolve, reject) => {
-  let quote = "";
-  MongoClient.connect(
-    url,
-    (err, db) => {
-      if (err) throw err;
-      const dbo = db.db("marquotes");
-      dbo
-        .collection("quotes")
-        .find({})
-        .toArray(async (err, result) => {
-          if (err) throw err;
-          const rand = Math.floor(Math.random() * result.length);
-          console.log(rand);
-          quote = result[rand].text;
-          db.close();
-          resolve(quote);
-        });
-    }
-  );
-});
+const getQuote = () => {
+  return new Promise((resolve, reject) => {
+    let quote = "";
+    MongoClient.connect(
+      url,
+      (err, db) => {
+        if (err) throw err;
+        const dbo = db.db("marquotes");
+        dbo
+          .collection("quotes")
+          .find({})
+          .toArray(async (err, result) => {
+            if (err) throw err;
+            const rand = Math.floor(Math.random() * result.length);
+            console.log(rand);
+            quote = result[rand].text;
+            db.close();
+            resolve(quote);
+          });
+      }
+    );
+  });
+};
 
 module.exports = { testConnection, fillDatabase, getQuote };
