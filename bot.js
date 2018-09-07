@@ -4,6 +4,9 @@ const Discord = require("discord.js");
 // Create an instance of a Discord client
 const client = new Discord.Client();
 
+//Import modules
+const { fillDatabase, getQuote } = require("./sendQuotes");
+
 /**
  * The ready event is vital, it means that only _after_ this will your bot start reacting to information
  * received from Discord
@@ -14,7 +17,6 @@ client.on("ready", () => {
 
 // Create an event listener for messages
 client.on("message", message => {
-  // If the message is "what is my avatar"
   if (message.content === "marquote" && message.channel.name === "bot") {
     //Get marqua channel
     const chan = client.channels.find("name", "marqua");
@@ -36,6 +38,24 @@ client.on("message", message => {
         );
       })
       .catch(console.error);
+  } else if (message.content === "fill") {
+    const chan = client.channels.find("name", "marquesuzaa_la_legende");
+
+    chan.fetchMessages().then(messages => {
+      const data = messages.array().map(text => {
+        text;
+      });
+      fillDatabase(data);
+    });
+  } else if (message.content === "getQuote") {
+    getQuote.then(quote => {
+      message.channel.send(
+        new Discord.RichEmbed()
+          .setTitle("Marquesuzaà dit : ")
+          .setColor(0xff0000)
+          .setDescription(quote)
+      );
+    });
   }
 });
 
