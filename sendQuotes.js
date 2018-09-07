@@ -37,6 +37,8 @@ const addQuote = data => {
 
 const fillDatabase = data => {
   return new Promise((resolve, reject) => {
+    console.log(`Data: ${data}`);
+    console.log(`Data length: ${data.length}`);
     if (data.length > 0) {
       dbo.listCollections({ name: "quotes" }).next((err, collInfo) => {
         if (err) throw err;
