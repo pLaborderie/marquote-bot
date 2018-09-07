@@ -36,22 +36,33 @@ const addQuote = data => {
 };
 
 const fillDatabase = data => {
-  dbo.listCollections({ name: "quotes" }).next((err, collInfo) => {
-    if (err) throw err;
-    if (collInfo) {
-      //Collection exists; Delete it
-      dbo.collection("quotes").drop((err, delOK) => {
+  return new Promise((resolve, reject) => {
+    if (data.length > 0) {
+      dbo.listCollections({ name: "quotes" }).next((err, collInfo) => {
         if (err) throw err;
-        if (delOK) {
-          console.log("Deleted quotes successfully!");
+        if (collInfo) {
+          //Collection exists; Delete it
+          dbo.collection("quotes").drop((err, delOK) => {
+            if (err) throw err;
+            if (delOK) {
+              console.log("Deleted quotes successfully!");
+            }
+          });
         }
       });
+      //Insert quotes
+      dbo.collection("quotes").insertMany(data, (err, res) => {
+        if (err) throw err;
+        console.log(`Inserted ${res.insertedCount} quotes!`);
+        resolve("La liste de citations a été mise à jour avec succès !");
+      });
+    } else {
+      reject(
+        new Error(
+          "/! Le serveur #marquesuzaa_la_legende est vide, n'existe pas, où je n'ai pas les droits de lecture dessus. /!\\"
+        )
+      );
     }
-  });
-  //Insert quotes
-  dbo.collection("quotes").insertMany(data, (err, res) => {
-    if (err) throw err;
-    console.log(`Inserted ${res.insertedCount} quotes!`);
   });
 };
 
