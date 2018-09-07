@@ -24,6 +24,7 @@ client.on("message", message => {
       const data = messages.array().map(text => {
         text;
       });
+      console.log(data);
       fillDatabase(data);
     });
   } else if (message.content === "marquote") {
