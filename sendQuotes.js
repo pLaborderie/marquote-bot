@@ -53,6 +53,7 @@ const getQuote = new Promise((resolve, reject) => {
         .toArray(async (err, result) => {
           if (err) throw err;
           const rand = Math.floor(Math.random() * result.length);
+          console.log(rand);
           quote = result[rand].text;
           db.close();
           resolve(quote);
