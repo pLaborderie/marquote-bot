@@ -29,6 +29,7 @@ client.on("message", message => {
     });
   } else if (message.content === "marquote") {
     getQuote.then(quote => {
+      console.log(quote);
       message.channel.send(
         new Discord.RichEmbed()
           .setTitle("Marquesuzaà dit : ")
