@@ -21,9 +21,10 @@ client.on("ready", () => {
 // Create an event listener for messages
 client.on("message", message => {
   //Nouveau message sur marquesuzaa_la_legende
-  if (message.channel.name === "marquesuzaa_la_legende") {
+  if (message.channel.id === "380444002538749964") {
     const data = { text: message.content };
     addQuote(data);
+    console.log(`Quote ${data} added`);
   }
 
   if (message.content === "fill") {
@@ -50,7 +51,6 @@ client.on("message", message => {
               .setDescription(err)
           );
         });
-      //Envoi message
     });
   } else if (message.content === "marquote") {
     getQuote()
