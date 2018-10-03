@@ -28,7 +28,6 @@ const close = () => {
 };
 
 const addQuote = data => {
-  const dbo = db.db("marquotes");
   dbo.collection("quotes").insertOne(data, (err, res) => {
     if (err) throw err;
     console.log("Quote inserted!");
