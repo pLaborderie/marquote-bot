@@ -1,5 +1,5 @@
 {
-  "name": "greeter-bot",
+  "name": "marquote-bot",
   "version": "1.0.0",
   "description": "My own Discord bot",
   "main": "bot.js",
@@ -9,9 +9,6 @@
     "discord.js": "^11.4.2",
     "mongodb": "^3.1.4",
     "winston": "^3.1.0"
-  },
-  "engines": {
-    "node": "8.11.3"
   },
   "scripts": {
     "start": "node bot.js"
