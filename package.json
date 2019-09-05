@@ -1,7 +1,7 @@
 {
   "name": "marquote-bot",
   "version": "1.0.0",
-  "description": "My own Discord bot",
+  "description": "Marquesuzaà quoting bot",
   "main": "bot.js",
   "author": "Paul Laborderie <paul.laborderie@gmail.com>",
   "dependencies": {
