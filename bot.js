@@ -71,5 +71,4 @@ client.on("message", message => {
 });
 
 // Log our bot in using the token from https://discordapp.com/developers/applications/me
-console.log('BOT TOKEN: ' + process.env.BOT_TOKEN);
 client.login(process.env.BOT_TOKEN);
