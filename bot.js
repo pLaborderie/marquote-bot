@@ -6,6 +6,7 @@ const client = new Discord.Client();
 
 //Import modules
 const { fillDatabase, getQuote, addQuote, connect } = require("./sendQuotes");
+const { PREFIX, HELP_TEXT } = require("./variables.js");
 
 //Connecting to DB
 connect();
@@ -18,16 +19,30 @@ client.on("ready", () => {
   console.log("I am ready!");
 });
 
+/**
+ * Sends a message in the channel using an embed
+ */
+const say = (channel, message) => {
+  channel.send(
+    new Discord.RichEmbed()
+      .setTitle("Marquesuzaà dit : ")
+      .setColor(0xff0000)
+      .setDescription(message)
+  );
+}
+
 // Create an event listener for messages
 client.on("message", message => {
   //Nouveau message sur marquesuzaa_la_legende
   if (message.channel.id === "380444002538749964") {
     const data = { text: message.content };
     addQuote(data);
-    console.log(`Quote ${data} added`);
   }
 
-  if (message.content === "fill") {
+  // Ignore messages that do not start with PREFIX
+  if (!message.content.startsWith(PREFIX)) return;
+
+  if (message.content === PREFIX + " fill") {
     const chan = client.channels.find("name", "marquesuzaa_la_legende");
 
     chan.fetchMessages().then(messages => {
@@ -36,40 +51,21 @@ client.on("message", message => {
       });
       fillDatabase(data)
         .then(res => {
-          message.channel.send(
-            new Discord.RichEmbed()
-              .setTitle("Marquesuzaà dit : ")
-              .setColor(0xff0000)
-              .setDescription(res)
-          );
+          say(message.channel, res);
         })
         .catch(err => {
-          message.channel.send(
-            new Discord.RichEmbed()
-              .setTitle("Marquesuzaà dit : ")
-              .setColor(0xff0000)
-              .setDescription(err)
-          );
+          say(message.channel, err);
         });
     });
-  } else if (message.content === "marquote") {
+  } else if (message.content === PREFIX + " help") {
+    say(message.channel, HELP_TEXT);
+  } else if (message.content === PREFIX) {
     getQuote()
       .then(quote => {
-        console.log(quote);
-        message.channel.send(
-          new Discord.RichEmbed()
-            .setTitle("Marquesuzaà dit : ")
-            .setColor(0xff0000)
-            .setDescription(quote)
-        );
+        say(message.channel, quote);
       })
       .catch(err => {
-        message.channel.send(
-          new Discord.RichEmbed()
-            .setTitle("Marquesuzaà dit : ")
-            .setColor(0xff0000)
-            .setDescription(err)
-        );
+        say(message.channel, err);
       });
   }
 });
