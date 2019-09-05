@@ -1,5 +1,5 @@
 const MongoClient = require("mongodb").MongoClient;
-const url = process.env.MLAB_URI;
+const url = process.env.MLAB_URI || 'mongodb://localhost:27017/marquotes';
 let dbo;
 
 const testConnection = () => {
