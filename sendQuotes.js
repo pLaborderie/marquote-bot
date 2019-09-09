@@ -66,7 +66,7 @@ const fillDatabase = data => {
     } else {
       reject(
         new Error(
-          "/! Le serveur #marquesuzaa_la_legende est vide, n'existe pas, où je n'ai pas les droits de lecture dessus. /!\\"
+          "/!\\ Le serveur #marquesuzaa_la_legende est vide, n'existe pas, où je n'ai pas les droits de lecture dessus. /!\\"
         )
       );
     }
@@ -77,7 +77,7 @@ const getQuote = () => {
   return new Promise((resolve, reject) => {
     dbo
       .collection("quotes")
-      .find({})
+      .find({ isActive: true })
       .toArray(async (err, result) => {
         if (err) throw err;
         if (result.length > 0) {
@@ -89,7 +89,7 @@ const getQuote = () => {
           //No quotes loaded!
           reject(
             new Error(
-              "/!\\ Aucune citation n'a pu être obtenue. La base de donnée est vide (utilisez la commande fill pour la remplir) ou innacessible (contactez un modérateur où @ExTermeur, créateur du bot)."
+              "/!\\ Aucune citation n'a pu être obtenue. La base de donnée est vide ou innacessible (contactez un modérateur où @ExTermeur, créateur du bot)."
             )
           );
         }

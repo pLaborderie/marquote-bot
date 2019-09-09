@@ -33,9 +33,14 @@ const say = (channel, message) => {
 
 // Create an event listener for messages
 client.on("message", message => {
-  //Nouveau message sur marquesuzaa_la_legende
+  // Nouveau message sur marquesuzaa_la_legende
   if (message.channel.id === "380444002538749964") {
-    const data = { text: message.content };
+    const data = {
+      text: message.content,
+      isActive: true,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
     addQuote(data);
   }
 
@@ -43,20 +48,22 @@ client.on("message", message => {
   if (!message.content.startsWith(PREFIX)) return;
 
   if (message.content === PREFIX + " fill") {
-    const chan = client.channels.find("name", "marquesuzaa_la_legende");
+    // const chan = client.channels.find("name", "marquesuzaa_la_legende");
 
-    chan.fetchMessages().then(messages => {
-      const data = messages.array().map(text => {
-        return { text: text.content };
-      });
-      fillDatabase(data)
-        .then(res => {
-          say(message.channel, res);
-        })
-        .catch(err => {
-          say(message.channel, err);
-        });
-    });
+    // chan.fetchMessages().then(messages => {
+    //   const data = messages.array().map(text => {
+    //     return { text: text.content };
+    //   });
+    //   fillDatabase(data)
+    //     .then(res => {
+    //       say(message.channel, res);
+    //     })
+    //     .catch(err => {
+    //       say(message.channel, err);
+    //     });
+    // });
+    say(message.channel, `Commande temporairement désactivée.
+    Contactez Paul Laborderie en cas de problème.`);
   } else if (message.content === PREFIX + " help") {
     say(message.channel, HELP_TEXT);
   } else if (message.content === PREFIX) {
@@ -70,5 +77,4 @@ client.on("message", message => {
   }
 });
 
-// Log our bot in using the token from https://discordapp.com/developers/applications/me
 client.login(process.env.BOT_TOKEN);
